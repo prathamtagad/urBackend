@@ -1578,10 +1578,14 @@ module.exports.refreshToken = async (req, res) => {
 
         const usedHeaderToken = !!req.header('x-refresh-token');
         return res.status(200).json({
+        success: true,
+        message: "Login successful",
+        data: {
             token: newTokens.accessToken,
             accessToken: newTokens.accessToken,
             expiresIn: newTokens.expiresIn,
             ...(usedHeaderToken ? { refreshToken: newTokens.refreshToken } : {})
+        }
         });
     } catch (err) {
         clearRefreshCookie(res);
